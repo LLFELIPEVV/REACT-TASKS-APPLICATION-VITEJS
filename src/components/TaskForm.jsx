@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { tasks } from "./task";
 
 function TaskForm({ createTask }) {
     const [title, setTitle] = useState("");
@@ -8,13 +7,12 @@ function TaskForm({ createTask }) {
     const handleSubmit = (e) => {
         // Cancela el comportamiento por defecto
         e.preventDefault();
-        const newTask = {
-            id: ((tasks[tasks.length - 1].id) + 1),
-            title: title,
-            description: description
-        }
-        console.log(newTask)
-        //createTask(title);
+        createTask({
+            title,
+            description,
+        });
+        setTitle("");
+        setDescription("");
     };
 
     return (
@@ -22,10 +20,13 @@ function TaskForm({ createTask }) {
             <input
                 placeholder="Escribe tu tarea"
                 onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                autoFocus
             />
-            <input
+            <textarea
                 placeholder="Escribe tu descripcion"
                 onChange={(e) => setDescription(e.target.value)}
+                value={description}
             />
             <button>Guardar</button>
         </form>
